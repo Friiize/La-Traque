@@ -2,5 +2,5 @@
 C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(2,31): warning C4081: attendu 'newline' ; rencontré ';'
 C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(26,2): warning C4091: 'typedef ' : ignoré à gauche de 'pisteur' quand aucune variable n'est déclarée
 C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(39,2): warning C4091: 'typedef ' : ignoré à gauche de 'monstre' quand aucune variable n'est déclarée
-C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Source.cpp(63,13): warning C4326: le type de retour de 'main' doit être 'int' au lieu de 'void'
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Source.cpp(65,13): warning C4326: le type de retour de 'main' doit être 'int' au lieu de 'void'
   La Traque.vcxproj -> C:\Users\Frize\source\repos\La-Traque\La Traque\Debug\La Traque.exe

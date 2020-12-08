@@ -46,16 +46,19 @@ void posPisteur(pisteur* pisteurs, char screen[][W], int W, int H) {
 				if ((pisteurs[j].x == x) && (pisteurs[j].y == y)) {
 					system("cls");
 					drawScreen(screen, H, W);
-					printf("Un pisteur est déjà placé ici. (X : %d, Y : %d)", x, y);
+					printf("Un pisteur est deja place ici. (X : %d, Y : %d)", x, y);
 					j = i;//On forces la fin de la boucle
 
 				}//Message d'erreur si le joueur place un pisteur sur un autre pisteur
 
 			}//Boucle autant de fois que de positions attribués
 
-		} while ((x == 0 || x == H - 1) || (y == 0 || y == W - 1) && ((pisteurs[i].x == x) && (pisteurs[i].y == y)));
+		} while ((x <= 0 || x >= H - 1) || (y <= 0 || y >= W - 1) && ((pisteurs[i].x == x) && (pisteurs[i].y == y)));
 
+		pisteurs[i].x = x;
+		pisteurs[i].y = y;
 		screen[y][x] = 'P';
+
 	}//On demande au joueur les positions de ces pisteurs
 }
 
@@ -83,7 +86,7 @@ void main() {
 	system("cls");
 
 	pisteurs = nbPisteur(screen, pisteurs, H, W); //Initialise le nombre de pisteur
-	posPisteur(pisteurs, screen, W, H);//Gére l'emplacement des pisteurs
+	posPisteur(pisteurs, screen, W, H); //Gére l'emplacement des pisteurs
 
 	while (quit) {
 		system("cls");
