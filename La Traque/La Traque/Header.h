@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-
 typedef struct pisteur {
 	int x = 0;
 	int y = 0;
