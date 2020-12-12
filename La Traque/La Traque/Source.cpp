@@ -34,21 +34,19 @@ void posPisteur(pisteur* pisteurs, char screen[][W], int W, int H) {
 		do {
 			system("cls");
 			drawScreen(screen, H, W);
-			printf("Position du pisteur %d\nX : ", i);
+			printf("Position du pisteur %d\nX : ", i+1);
 			scanf("%d", &x);
 			printf("Y : ");
 			scanf("%d", &y);
 
 			for (int j = 0; j < i; j++) {
-				printf("Ca passe");
-				system("pause");
-
 				if ((pisteurs[j].x == x) && (pisteurs[j].y == y)) {
 					system("cls");
 					drawScreen(screen, H, W);
-					printf("Un pisteur est deja place ici. (X : %d, Y : %d)", x, y);
+					printf("Un pisteur est deja place ici. (X : %d, Y : %d)\n\n", x, y);
+					system("pause");
 					j = i;//On forces la fin de la boucle
-
+					i--;//On prévoit qu'il boucle +1 pour qu'il retourne sur le pisteur qui est mal placé
 				}//Message d'erreur si le joueur place un pisteur sur un autre pisteur
 
 			}//Boucle autant de fois que de positions attribués
