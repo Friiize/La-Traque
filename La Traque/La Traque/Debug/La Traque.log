@@ -1,4 +1,15 @@
-﻿  Source.cpp
+﻿  initHandler.cpp
 C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(2,31): warning C4081: attendu 'newline' ; rencontré ';'
-C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Source.cpp(88,13): warning C4326: le type de retour de 'main' doit être 'int' au lieu de 'void'
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(35,2): warning C4091: 'typedef ' : ignoré à gauche de 'prevPos' quand aucune variable n'est déclarée
+  posHandler.cpp
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(2,31): warning C4081: attendu 'newline' ; rencontré ';'
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(35,2): warning C4091: 'typedef ' : ignoré à gauche de 'prevPos' quand aucune variable n'est déclarée
+  roundHandler.cpp
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(2,31): warning C4081: attendu 'newline' ; rencontré ';'
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(35,2): warning C4091: 'typedef ' : ignoré à gauche de 'prevPos' quand aucune variable n'est déclarée
+  Source.cpp
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(2,31): warning C4081: attendu 'newline' ; rencontré ';'
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(35,2): warning C4091: 'typedef ' : ignoré à gauche de 'prevPos' quand aucune variable n'est déclarée
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Source.cpp(3,13): warning C4326: le type de retour de 'main' doit être 'int' au lieu de 'void'
+  Génération de code en cours...
   La Traque.vcxproj -> C:\Users\Frize\source\repos\La-Traque\La Traque\Debug\La Traque.exe

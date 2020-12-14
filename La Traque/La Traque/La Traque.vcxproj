@@ -139,6 +139,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Header.cpp" />
+    <ClCompile Include="initHandler.cpp" />
+    <ClCompile Include="posHandler.cpp" />
+    <ClCompile Include="roundHandler.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
