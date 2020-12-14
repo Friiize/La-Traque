@@ -14,7 +14,7 @@ void initScreen(char cases[][W], int freshCases[][W]) {
 	}
 }
 
-void drawScreen(char cases[][W], int H, int W) {
+void drawScreen(char cases[][W]) {
 	system("cls");
 	for (int i = 0; i < H; i++) {
 		for (int j = 0; j < W; j++) {

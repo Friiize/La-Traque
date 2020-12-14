@@ -13,7 +13,7 @@ void main() {
 	firstScreen(cases); //Premire affichage du jeu
 
 	do {
-		drawScreen(cases, H, W);//Affiche un visuel du tableau avec les pos des pisteurs
+		drawScreen(cases);//Affiche un visuel du tableau avec les pos des pisteurs
 		printf("Combien de pisteur ? (entre 3 et 10)\n");
 		scanf("%d", &input);
 	} while (input < 3 || input > 10);
@@ -23,9 +23,9 @@ void main() {
 	posHandler(pisteurs, monstres, cases, freshCases, input, W, H);
 
 	while (quit) {
-		drawScreen(cases, H, W);
+		drawScreen(cases);
 		system("pause");//Temporaire
-		roundHandler(pisteurs, monstres, cases, freshCases);//Gére le tour en cours
+		roundHandler(pisteurs, monstres, cases, freshCases, input);//Gére le tour en cours
 
 		for (int i = 0; i < input; i++) {
 			quit = 0;

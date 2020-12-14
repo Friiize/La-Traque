@@ -41,7 +41,7 @@ typedef struct monstre {
 }monstre;
 
 void initScreen(char cases[][W], int freshCases[][W]);
-void drawScreen(char cases[][W], int H, int W);
+void drawScreen(char cases[][W]);
 void firstScreen(char cases[][W]);
 void posHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int input, int W, int H);
-void roundHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W]);
+void roundHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int nbPisteur);
