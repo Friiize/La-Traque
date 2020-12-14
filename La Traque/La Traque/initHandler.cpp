@@ -1,30 +1,31 @@
 #include "Header.h"
 
-void initScreen(char screen[][W]) {
+void initScreen(char cases[][W], int freshCases[][W]) {
 	for (int i = 0; i < H; i++) {
 		for (int j = 0; j < W; j++) {
 			if (i == 0 || i == H - 1 || j == 0 || j == W - 1) {
-				screen[i][j] = '*';
+				cases[i][j] = '*';
 			}
 			else {
-				screen[i][j] = ' ';
+				cases[i][j] = ' ';
 			}
+			freshCases[i][j] = 0;
 		}
 	}
 }
 
-void drawScreen(char screen[][W], int H, int W) {
+void drawScreen(char cases[][W], int H, int W) {
 	system("cls");
 	for (int i = 0; i < H; i++) {
 		for (int j = 0; j < W; j++) {
-			printf("%c ", screen[i][j]);
+			printf("%c ", cases[i][j]);
 		}
 		printf("\n");
 	}
 }
 
-void firstScreen(char screen[][W]) {
-	drawScreen(screen, H, W);
+void firstScreen(char cases[][W]) {
+	drawScreen(cases, H, W);
 	printf("Bienvenue dans La Traque !\n\n\n");
 	system("pause");
 }

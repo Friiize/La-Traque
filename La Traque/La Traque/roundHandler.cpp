@@ -1,9 +1,11 @@
 #include "Header.h"
 
-void roundHandler(pisteur* pisteurs, monstre* monstres, char screen[][W]) {
-	for (int i = 0; i < 14; i++) {
-		if (monstres[0].prevPoses[i].fresh != 0) {
-			monstres[0].prevPoses[i].fresh--;
+void roundHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W]) {
+	for (int i = 0; i < H; i++) {
+		for (int j = 0; j < W; j++) {
+			if (freshCases[i][j] != 0) {
+				freshCases[i][j]--;
+			}
 		}
 	}
 }

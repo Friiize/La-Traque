@@ -1,13 +1,13 @@
 #include "Header.h"
 
-void posPisteur(pisteur* pisteurs, char screen[][W], int input, int W, int H) {
+void posPisteur(pisteur* pisteurs, char cases[][W], int input, int W, int H) {
 	int x = -1;
 	int y = -1;
 	int isPlaced = 0;
 
 	for (int i = 0; i < input; i++) {
 		do {
-			drawScreen(screen, H, W);
+			drawScreen(cases, H, W);
 			printf("Position du pisteur %d\nX (MAX %d) : ", input, W - 2);
 			scanf("%d", &x);
 			printf("Y (MAX %d) : ", H - 2);
@@ -16,7 +16,7 @@ void posPisteur(pisteur* pisteurs, char screen[][W], int input, int W, int H) {
 			for (int j = 0; j < i; j++) {
 				isPlaced = 1;
 				if ((pisteurs[j].x == x) && (pisteurs[j].y == y)) {
-					drawScreen(screen, H, W);
+					drawScreen(cases, H, W);
 					printf("Un pisteur est deja place ici. (X : %d, Y : %d)\n\n", x, y);
 					system("pause");
 					j = i;//On forces la fin de la boucle
@@ -31,12 +31,12 @@ void posPisteur(pisteur* pisteurs, char screen[][W], int input, int W, int H) {
 		//Attribue les valeurs une fois la pos validé
 		pisteurs[i].x = x;
 		pisteurs[i].y = y;
-		screen[y][x] = 'P';
+		cases[y][x] = 'P';
 
 	}//On demande au joueur les positions de ces pisteurs
 }
 
-void initMonstre(monstre* monstres, pisteur* pisteurs, char screen[][W], int input, int W, int H) {
+void initMonstre(monstre* monstres, pisteur* pisteurs, char cases[][W], int freshCases[][W], int input, int W, int H) {
 	int isPlaced = 0;
 	do {//Tant que le monstre est incorrectement placé
 		monstres[0].x = rand() % W - 1;
@@ -52,11 +52,11 @@ void initMonstre(monstre* monstres, pisteur* pisteurs, char screen[][W], int inp
 
 	} while ((monstres[0].x <= 0 || monstres[0].x >= H - 1) || (monstres[0].y <= 0 || monstres[0].y >= W - 1) && isPlaced == 0);
 
-	screen[monstres[0].x][monstres[0].y] = 'M';
-	monstres[0].prevPoses[0] = { 16, monstres[0].x, monstres[0].y };
+	cases[monstres[0].y][monstres[0].x] = 'M';
+	freshCases[monstres[0].y][monstres[0].x] = 16;
 }
 
-void posHandler (pisteur* pisteurs, monstre* monstres, char screen[][W], int input, int W, int H) {
-	posPisteur(pisteurs, screen, input, W, H); //Gére l'emplacement des pisteurs
-	initMonstre(monstres, pisteurs, screen, input, W, H);//Gére l'emplacement du monstre
+void posHandler (pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int input, int W, int H) {
+	posPisteur(pisteurs, cases, input, W, H); //Gére l'emplacement des pisteurs
+	initMonstre(monstres, pisteurs, cases, freshCases, input, W, H);//Gére l'emplacement du monstre
 }
