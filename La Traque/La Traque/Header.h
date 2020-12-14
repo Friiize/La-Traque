@@ -22,8 +22,8 @@ typedef struct pisteur {
 	int down = 0;
 	int left = 0;
 	int right = 0;
-	int isDead = 0;
-};
+	int isDead = 1;
+}pisteur;
 
 typedef struct monstre {
 	int x = 0;
@@ -36,4 +36,4 @@ typedef struct monstre {
 	int down = 0;
 	int left = 0;
 	int right = 0;
-};
+}monstre;
