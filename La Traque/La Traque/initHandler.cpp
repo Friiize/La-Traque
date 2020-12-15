@@ -25,7 +25,7 @@ void drawScreen(char cases[][W]) {
 }
 
 void firstScreen(char cases[][W]) {
-	drawScreen(cases, H, W);
+	drawScreen(cases);
 	printf("Bienvenue dans La Traque !\n\n\n");
 	system("pause");
 }

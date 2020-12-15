@@ -1,14 +1,14 @@
 #include "Header.h"
 
-void posPisteur(pisteur* pisteurs, char cases[][W], int input, int W, int H) {
+void posPisteur(pisteur* pisteurs, char cases[][W], int input) {
 	int x = -1;
 	int y = -1;
 	int isPlaced = 0;
 
 	for (int i = 0; i < input; i++) {
 		do {
-			drawScreen(cases, H, W);
-			printf("Position du pisteur %d\nX (MAX %d) : ", input, W - 2);
+			drawScreen(cases);
+			printf("Position du pisteur %d\nX (MAX %d) : ", i+1, W - 2);
 			scanf("%d", &x);
 			printf("Y (MAX %d) : ", H - 2);
 			scanf("%d", &y);
@@ -16,7 +16,7 @@ void posPisteur(pisteur* pisteurs, char cases[][W], int input, int W, int H) {
 			for (int j = 0; j < i; j++) {
 				isPlaced = 1;
 				if ((pisteurs[j].x == x) && (pisteurs[j].y == y)) {
-					drawScreen(cases, H, W);
+					drawScreen(cases);
 					printf("Un pisteur est deja place ici. (X : %d, Y : %d)\n\n", x, y);
 					system("pause");
 					j = i;//On forces la fin de la boucle
@@ -36,7 +36,7 @@ void posPisteur(pisteur* pisteurs, char cases[][W], int input, int W, int H) {
 	}//On demande au joueur les positions de ces pisteurs
 }
 
-void initMonstre(monstre* monstres, pisteur* pisteurs, char cases[][W], int freshCases[][W], int input, int W, int H) {
+void initMonstre(monstre* monstres, pisteur* pisteurs, char cases[][W], int freshCases[][W], int input) {
 	int isPlaced = 0;
 	do {//Tant que le monstre est incorrectement placé
 		monstres[0].x = rand() % W - 1;
@@ -56,7 +56,7 @@ void initMonstre(monstre* monstres, pisteur* pisteurs, char cases[][W], int fres
 	freshCases[monstres[0].y][monstres[0].x] = 16;
 }
 
-void posHandler (pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int input, int W, int H) {
-	posPisteur(pisteurs, cases, input, W, H); //Gére l'emplacement des pisteurs
-	initMonstre(monstres, pisteurs, cases, freshCases, input, W, H);//Gére l'emplacement du monstre
+void posHandler (pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int input) {
+	posPisteur(pisteurs, cases, input); //Gére l'emplacement des pisteurs
+	initMonstre(monstres, pisteurs, cases, freshCases, input);//Gére l'emplacement du monstre
 }

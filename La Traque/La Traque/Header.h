@@ -7,6 +7,7 @@
 const int W = 31;
 const int H = 16;
 
+
 typedef struct pisteur {
 	int x = 0;
 	int y = 0;
@@ -16,7 +17,7 @@ typedef struct pisteur {
 	int down = 0;
 	int left = 0;
 	int right = 0;
-	int isDead = 1;
+	int isDead = 0;
 }pisteur;
 
 
@@ -34,5 +35,5 @@ typedef struct monstre {
 void initScreen(char cases[][W], int freshCases[][W]);
 void drawScreen(char cases[][W]);
 void firstScreen(char cases[][W]);
-void posHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int input, int W, int H);
+void posHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int input);
 void roundHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int nbPisteur);

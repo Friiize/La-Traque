@@ -1,6 +1,7 @@
 #include "Header.h"
 
 void main() {
+	srand(time(NULL));//Pour éviter le même séquence de random 
 	int quit = 1;
 	int input = -1;
 	char cases[H][W];
@@ -20,7 +21,7 @@ void main() {
 
     pisteurs = (pisteur*)calloc(input, sizeof(pisteur)); //Initialise le nombre de pisteur
 
-	posHandler(pisteurs, monstres, cases, freshCases, input, W, H);
+	posHandler(pisteurs, monstres, cases, freshCases, input);
 
 	while (quit) {
 		drawScreen(cases);

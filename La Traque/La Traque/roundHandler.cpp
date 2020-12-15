@@ -37,21 +37,26 @@ void rapport(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCas
 
 void pisteurStatus(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int nbPisteur) {
 	for (int i = 0; i < nbPisteur; i++) {
-		if (pisteurs[i].isDead != 0) {
+		if (pisteurs[i].isDead == 0) {
 			cases[pisteurs[i].y][pisteurs[i].x] = '!';
 			drawScreen(cases);
 			if (pisteurs[i].x == monstres[0].x && pisteurs[i].y == monstres[0].y) {
 				printf("Le monstre viens de tuer le pisteur %d en (%d, %d)", i+1, monstres[0].x, monstres[i].y);
 				cases[pisteurs[i].y][pisteurs[i].x] = ' ';
+				system("pause");//Temporaire
+
 			}
 			else if (pisteurs[i].x != monstres[0].x && pisteurs[i].y != monstres[0].y) {
 				printf("Rapport du pisteur %d en cours...", i + 1);
-				rapport(pisteurs, monstres, cases, freshCases, i);
+				system("pause");//Temporaire
+
+				//rapport(pisteurs, monstres, cases, freshCases, i);
 			}
 		}
-		else if (pisteurs[i].isDead == 0) {
+		else if (pisteurs[i].isDead == 1) {
 			drawScreen(cases);
 			printf("Le pisteur %d est mort en (%d, %d)", i + 1, pisteurs[i].x, pisteurs[i].y);
+			system("pause");//Temporaire
 
 		}
 	}
