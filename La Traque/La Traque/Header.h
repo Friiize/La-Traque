@@ -11,7 +11,7 @@ const int H = 16;
 typedef struct pisteur {
 	int x = 0;
 	int y = 0;
-	int detectArea[8][2];
+	int* detectedArea[8][2];
 
 	int up = 0;
 	int down = 0;

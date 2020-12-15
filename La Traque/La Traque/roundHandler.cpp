@@ -7,31 +7,38 @@ void pisteurActionHandler(pisteur* pisteurs, monstre* monstres, char cases[][W])
 
 void rapport(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int nb) {
 	int count = 0;
+	int* x = &pisteurs[nb].x;
+	int* y = &pisteurs[nb].y;
 
 	for (int i = 0; i < 8; i++) {
 		switch (i) {
 		case 1:
-			int x = pisteurs[nb].x--;
-			int y = pisteurs[nb].y--;
-			if (x == monstres[0].x && y == monstres[0].y) {
+			x--;
+			y--;
+			if (x == &monstres[0].x && y == &monstres[0].y) {
 				printf("Je le vois.\n\n");
-				pisteurActionHandler(pisteurs, monstres, cases);
+				system("pause");//Temporaire
+
+				//pisteurActionHandler(pisteurs, monstres, cases);
 			}
 			else if (freshCases[y][x] != 0) {
 				printf("Trace fraiche en X : %d, Y : %d", x, y);
-				pisteurs[nb].detectArea[count][0] = y;
-				pisteurs[nb].detectArea[count][1] = x;
+				pisteurs[nb].detectedArea[count][0] = y;
+				pisteurs[nb].detectedArea[count][1] = x;
 				count++;
+				system("pause");//Temporaire
 			}
 			break;
 		}
 	}
 
-	if (pisteurs[nb].detectArea != NULL) {
+	if (pisteurs[nb].detectedArea != NULL) {
 
 	}
 	else {
 		printf("Rien autour de moi.");
+		system("pause");//Temporaire
+
 	}
 }
 
@@ -48,9 +55,7 @@ void pisteurStatus(pisteur* pisteurs, monstre* monstres, char cases[][W], int fr
 			}
 			else if (pisteurs[i].x != monstres[0].x && pisteurs[i].y != monstres[0].y) {
 				printf("Rapport du pisteur %d en cours...", i + 1);
-				system("pause");//Temporaire
-
-				//rapport(pisteurs, monstres, cases, freshCases, i);
+				rapport(pisteurs, monstres, cases, freshCases, i);
 			}
 		}
 		else if (pisteurs[i].isDead == 1) {

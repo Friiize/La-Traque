@@ -26,7 +26,7 @@ void posPisteur(pisteur* pisteurs, char cases[][W], int input) {
 
 			}//Boucle autant de fois que de positions attribués
 
-		} while ((&x <= 0 || x >= 30) || (&y <= 0 || y >= 15) && isPlaced == 0);
+		} while ((x < 1 || x > 29) || (y < 1 || y > 14) && isPlaced == 0);
 
 		//Attribue les valeurs une fois la pos validé
 		pisteurs[i].x = x;

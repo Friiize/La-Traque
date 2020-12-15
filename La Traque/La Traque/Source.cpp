@@ -25,7 +25,6 @@ void main() {
 
 	while (quit) {
 		drawScreen(cases);
-		system("pause");//Temporaire
 		roundHandler(pisteurs, monstres, cases, freshCases, input);//Gére le tour en cours
 
 		for (int i = 0; i < input; i++) {
