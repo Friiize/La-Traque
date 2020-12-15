@@ -7,11 +7,17 @@
 const int W = 31;
 const int H = 16;
 
+typedef struct detect {
+	int x = 0;
+	int y = 0;
+	int fresh = 0;
+}detect;
+
 
 typedef struct pisteur {
 	int x = 0;
 	int y = 0;
-	int detectedArea[8][2];
+	detect detectedArea[8];
 
 	int up = 0;
 	int down = 0;
