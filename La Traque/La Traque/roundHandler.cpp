@@ -1,5 +1,8 @@
 #include "Header.h"
 
+void deplacementHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int nbPisteur){
+
+}
 
 void pisteurActionHandler(pisteur* pisteurs, monstre* monstres, char cases[][W]) {
 	drawScreen(cases);
@@ -7,24 +10,20 @@ void pisteurActionHandler(pisteur* pisteurs, monstre* monstres, char cases[][W])
 
 void rapport(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int nb) {
 	int count = 0;
-	int* x = &pisteurs[nb].x;
-	int* y = &pisteurs[nb].y;
 
 	for (int i = 0; i < 8; i++) {
 		switch (i) {
-		case 1:
-			x--;
-			y--;
-			if (x == &monstres[0].x && y == &monstres[0].y) {
+		case 0:
+			if (pisteurs[nb].x - 1 == monstres[0].x && pisteurs[nb].y - 1 == monstres[0].y) {
 				printf("Je le vois.\n\n");
 				system("pause");//Temporaire
 
 				//pisteurActionHandler(pisteurs, monstres, cases);
 			}
-			else if (freshCases[y][x] != 0) {
-				printf("Trace fraiche en X : %d, Y : %d", x, y);
-				pisteurs[nb].detectedArea[count][0] = y;
-				pisteurs[nb].detectedArea[count][1] = x;
+			else if (freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1] != 0) {
+				printf("Trace fraiche en X : %d, Y : %d", pisteurs[nb].x - 1, pisteurs[nb].y - 1);
+				pisteurs[nb].detectedArea[count][0] = pisteurs[nb].y - 1;
+				pisteurs[nb].detectedArea[count][1] = pisteurs[nb].x - 1;
 				count++;
 				system("pause");//Temporaire
 			}
@@ -32,12 +31,12 @@ void rapport(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCas
 		}
 	}
 
-	if (pisteurs[nb].detectedArea != NULL) {
-
-	}
-	else {
+	if (pisteurs[nb].detectedArea == NULL) {
 		printf("Rien autour de moi.");
 		system("pause");//Temporaire
+	}
+	else {
+		printf(" ");
 
 	}
 }
@@ -77,4 +76,5 @@ void roundHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int fre
 	}
 
 	pisteurStatus(pisteurs, monstres, cases, freshCases, nbPisteur);
+	deplacementHandler(pisteurs, monstres, cases, freshCases, nbPisteur);
 }
