@@ -50,7 +50,7 @@ void initMonstre(monstre* monstres, pisteur* pisteurs, char cases[][W], int fres
 			}
 		} //Vérification que la pos du monstre soit différente de la pos des pisteurs
 
-	} while ((monstres[0].x <= 0 || monstres[0].x >= H - 1) || (monstres[0].y <= 0 || monstres[0].y >= W - 1) && isPlaced == 0);
+	} while ((monstres[0].x < 1 || monstres[0].x > 29) || (monstres[0].y < 1 || monstres[0].y > 14) && isPlaced == 0);
 
 	cases[monstres[0].y][monstres[0].x] = 'M';
 	freshCases[monstres[0].y][monstres[0].x] = 16;

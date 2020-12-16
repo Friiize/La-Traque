@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <Windows.h>
 
 const int W = 31;
 const int H = 16;
@@ -36,6 +37,7 @@ typedef struct monstre {
 	int down = 0;
 	int left = 0;
 	int right = 0;
+	int isHit = 0;
 }monstre;
 
 void initScreen(char cases[][W], int freshCases[][W]);

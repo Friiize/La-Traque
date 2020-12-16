@@ -5,7 +5,28 @@ void deplacementHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], i
 }
 
 void pisteurActionHandler(pisteur* pisteurs, monstre* monstres, char cases[][W]) {
+	char c = getchar();
 	drawScreen(cases);
+	printf("Vous pouvez tirer avec la touche T.\n");
+	printf("Ou sur la touche R pour ne rien faire.\n");
+
+	switch (c) {
+	case 'T':
+		int luck = rand() % 10;
+		drawScreen(cases);
+		printf("Vous préparez le tire et...");
+		Sleep(1000);
+		if (luck <= 4) {
+			monstres[0].hp = monstres[0].hp-1;
+			printf("Vous l'avez touché ! Encore %d coup", monstres[0].hp);
+		}
+		else {
+			printf("Manquez...Sauvez-vous vite !");
+		}
+		break;
+	case 'R':
+		break;
+	}
 }
 
 void casesHandler(pisteur* pisteurs, monstre* monstres,char cases[][W], int freshCases[][W], int x, int y, int* count, int i, int nb) {
@@ -14,7 +35,7 @@ void casesHandler(pisteur* pisteurs, monstre* monstres,char cases[][W], int fres
 
 	if (x == monstres[0].x && y == monstres[0].y) {
 		printf("Je le vois.\n\n");
-		system("pause");//Temporaire
+		system("pause");
 
 		pisteurActionHandler(pisteurs, monstres, cases);
 	}
