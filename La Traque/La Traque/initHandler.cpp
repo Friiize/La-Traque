@@ -32,11 +32,11 @@ void firstScreen(char cases[][W]) {
 
 	drawScreen(cases);
 	printf("Les pisteurs ont une detection de 8 cases tout autour d'eux\n");
-	printf("allant de 1 a 9.\n");
+	printf("allant de 1 a 9. (En enlevant votre position)\n");
 	system("pause");
 
 	drawScreen(cases);
-	printf("Gardez bien en tetes les données que le jeu vous donnera.\n");
-	printf("C'est un jeu de mémoire, jouez avec le moins de pisteur pour le rendre plus dur.\n");
+	printf("Gardez bien en tetes les donnees que le jeu vous donnera.\n");
+	printf("C'est un jeu de memoire, jouez avec le moins de pisteur pour le rendre plus dur.\n");
 	system("pause");
 }

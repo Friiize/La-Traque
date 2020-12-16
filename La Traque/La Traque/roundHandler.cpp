@@ -8,154 +8,54 @@ void pisteurActionHandler(pisteur* pisteurs, monstre* monstres, char cases[][W])
 	drawScreen(cases);
 }
 
+void casesHandler(pisteur* pisteurs, monstre* monstres,char cases[][W], int freshCases[][W], int x, int y, int* count, int i, int nb) {
+	x = pisteurs[nb].x + x;
+	y = pisteurs[nb].y + y;
+
+	if (x == monstres[0].x && y == monstres[0].y) {
+		printf("Je le vois.\n\n");
+		system("pause");//Temporaire
+
+		pisteurActionHandler(pisteurs, monstres, cases);
+	}
+	else if (freshCases[y][x] != 0) {
+		printf("Trace fraiche valant %d en X : %d, Y : %d\n\n", freshCases[y][x], x, y);
+		pisteurs[nb].detectedArea[i].y = y;
+		pisteurs[nb].detectedArea[i].x = x;
+		pisteurs[nb].detectedArea[i].fresh = freshCases[y][x];
+		*count = 1;
+		system("pause");//Temporaire
+	}
+}
+
 void rapport(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int nb) {
 	int count = 0;
 
 	for (int i = 0; i < 8; i++) {
 		switch (i) {
 		case 0:
-			if (pisteurs[nb].x - 1 == monstres[0].x && pisteurs[nb].y - 1 == monstres[0].y) {
-				printf("Je le vois.\n\n");
-				system("pause");//Temporaire
-
-				pisteurActionHandler(pisteurs, monstres, cases);
-			}
-			else if (freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1] != 0) {
-				printf("Trace fraiche valant %d en X : %d, Y : %d\n\n", freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1], pisteurs[nb].x - 1, pisteurs[nb].y - 1);
-				pisteurs[nb].detectedArea[i].y = pisteurs[nb].y - 1;
-				pisteurs[nb].detectedArea[i].x = pisteurs[nb].x - 1;
-				pisteurs[nb].detectedArea[i].fresh = freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1];
-				count++;
-				system("pause");//Temporaire
-			}
-			break; 
+			casesHandler(pisteurs, monstres, cases, freshCases, -1, -1, &count, i, nb);//Case haut gauche
+			break;
 		case 1:
-			if (pisteurs[nb].x - 1 == monstres[0].x && pisteurs[nb].y - 1 == monstres[0].y) {
-				printf("Je le vois.\n\n");
-				system("pause");//Temporaire
-
-				pisteurActionHandler(pisteurs, monstres, cases);
-			}
-			else if (freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1] != 0) {
-				printf("Trace fraiche valant %d en X : %d, Y : %d\n\n", freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1], pisteurs[nb].x - 1, pisteurs[nb].y - 1);
-				pisteurs[nb].detectedArea[i].y = pisteurs[nb].y - 1;
-				pisteurs[nb].detectedArea[i].x = pisteurs[nb].x - 1;
-				pisteurs[nb].detectedArea[i].fresh = freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1];
-				count++;
-				system("pause");//Temporaire
-			}
+			casesHandler(pisteurs, monstres, cases, freshCases, 0, -1, &count, i, nb);//Case haut centre
 			break;
-		case 2:
-			if (pisteurs[nb].x - 1 == monstres[0].x && pisteurs[nb].y - 1 == monstres[0].y) {
-				printf("Je le vois.\n\n");
-				system("pause");//Temporaire
-
-				pisteurActionHandler(pisteurs, monstres, cases);
-			}
-			else if (freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1] != 0) {
-				printf("Trace fraiche valant %d en X : %d, Y : %d\n\n", freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1], pisteurs[nb].x - 1, pisteurs[nb].y - 1);
-				pisteurs[nb].detectedArea[i].y = pisteurs[nb].y - 1;
-				pisteurs[nb].detectedArea[i].x = pisteurs[nb].x - 1;
-				pisteurs[nb].detectedArea[i].fresh = freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1];
-				count++;
-				system("pause");//Temporaire
-			}
+		case 2: 
+			casesHandler(pisteurs, monstres, cases, freshCases, 1, -1, &count, i, nb);//Case haut droit
 			break;
-		case 3:
-			if (pisteurs[nb].x - 1 == monstres[0].x && pisteurs[nb].y - 1 == monstres[0].y) {
-				printf("Je le vois.\n\n");
-				system("pause");//Temporaire
-
-				pisteurActionHandler(pisteurs, monstres, cases);
-			}
-			else if (freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1] != 0) {
-				printf("Trace fraiche valant %d en X : %d, Y : %d\n\n", freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1], pisteurs[nb].x - 1, pisteurs[nb].y - 1);
-				pisteurs[nb].detectedArea[i].y = pisteurs[nb].y - 1;
-				pisteurs[nb].detectedArea[i].x = pisteurs[nb].x - 1;
-				pisteurs[nb].detectedArea[i].fresh = freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1];
-				count++;
-				system("pause");//Temporaire
-			}
+		case 3: 
+			casesHandler(pisteurs, monstres, cases, freshCases, -1, 0, &count, i, nb);//Case gauche
 			break;
 		case 4:
-			if (pisteurs[nb].x - 1 == monstres[0].x && pisteurs[nb].y - 1 == monstres[0].y) {
-				printf("Je le vois.\n\n");
-				system("pause");//Temporaire
-
-				pisteurActionHandler(pisteurs, monstres, cases);
-			}
-			else if (freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1] != 0) {
-				printf("Trace fraiche valant %d en X : %d, Y : %d\n\n", freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1], pisteurs[nb].x - 1, pisteurs[nb].y - 1);
-				pisteurs[nb].detectedArea[i].y = pisteurs[nb].y - 1;
-				pisteurs[nb].detectedArea[i].x = pisteurs[nb].x - 1;
-				pisteurs[nb].detectedArea[i].fresh = freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1];
-				count++;
-				system("pause");//Temporaire
-			}
-			break; 
+			casesHandler(pisteurs, monstres, cases, freshCases, 1, 0, &count, i, nb);//Case droit
+			break;
 		case 5:
-			if (pisteurs[nb].x - 1 == monstres[0].x && pisteurs[nb].y - 1 == monstres[0].y) {
-				printf("Je le vois.\n\n");
-				system("pause");//Temporaire
-
-				pisteurActionHandler(pisteurs, monstres, cases);
-			}
-			else if (freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1] != 0) {
-				printf("Trace fraiche valant %d en X : %d, Y : %d\n\n", freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1], pisteurs[nb].x - 1, pisteurs[nb].y - 1);
-				pisteurs[nb].detectedArea[i].y = pisteurs[nb].y - 1;
-				pisteurs[nb].detectedArea[i].x = pisteurs[nb].x - 1;
-				pisteurs[nb].detectedArea[i].fresh = freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1];
-				count++;
-				system("pause");//Temporaire
-			}
-			break; 
+			casesHandler(pisteurs, monstres, cases, freshCases, -1, 1, &count, i, nb);//Case bas gauche
+			break;
 		case 6:
-			if (pisteurs[nb].x - 1 == monstres[0].x && pisteurs[nb].y - 1 == monstres[0].y) {
-				printf("Je le vois.\n\n");
-				system("pause");//Temporaire
-
-				pisteurActionHandler(pisteurs, monstres, cases);
-			}
-			else if (freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1] != 0) {
-				printf("Trace fraiche valant %d en X : %d, Y : %d\n\n", freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1], pisteurs[nb].x - 1, pisteurs[nb].y - 1);
-				pisteurs[nb].detectedArea[i].y = pisteurs[nb].y - 1;
-				pisteurs[nb].detectedArea[i].x = pisteurs[nb].x - 1;
-				pisteurs[nb].detectedArea[i].fresh = freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1];
-				count++;
-				system("pause");//Temporaire
-			}
-			break; 
+			casesHandler(pisteurs, monstres, cases, freshCases, 0, 1, &count, i, nb);//Case bas centre
+			break;
 		case 7:
-			if (pisteurs[nb].x - 1 == monstres[0].x && pisteurs[nb].y - 1 == monstres[0].y) {
-				printf("Je le vois.\n\n");
-				system("pause");//Temporaire
-
-				pisteurActionHandler(pisteurs, monstres, cases);
-			}
-			else if (freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1] != 0) {
-				printf("Trace fraiche valant %d en X : %d, Y : %d\n\n", freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1], pisteurs[nb].x - 1, pisteurs[nb].y - 1);
-				pisteurs[nb].detectedArea[i].y = pisteurs[nb].y - 1;
-				pisteurs[nb].detectedArea[i].x = pisteurs[nb].x - 1;
-				pisteurs[nb].detectedArea[i].fresh = freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1];
-				count++;
-				system("pause");//Temporaire
-			}
-			break; 
-		case 8:
-			if (pisteurs[nb].x - 1 == monstres[0].x && pisteurs[nb].y - 1 == monstres[0].y) {
-				printf("Je le vois.\n\n");
-				system("pause");//Temporaire
-
-				pisteurActionHandler(pisteurs, monstres, cases);
-			}
-			else if (freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1] != 0) {
-				printf("Trace fraiche valant %d en X : %d, Y : %d\n\n", freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1], pisteurs[nb].x - 1, pisteurs[nb].y - 1);
-				pisteurs[nb].detectedArea[i].y = pisteurs[nb].y - 1;
-				pisteurs[nb].detectedArea[i].x = pisteurs[nb].x - 1;
-				pisteurs[nb].detectedArea[i].fresh = freshCases[pisteurs[nb].y - 1][pisteurs[nb].x - 1];
-				count++;
-				system("pause");//Temporaire
-			}
+			casesHandler(pisteurs, monstres, cases, freshCases, 1, 1, &count, i, nb);//Case bas droit
 			break;
 		}
 	}
