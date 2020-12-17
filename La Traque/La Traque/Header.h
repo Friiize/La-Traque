@@ -45,3 +45,4 @@ void drawScreen(char cases[][W]);
 void firstScreen(char cases[][W]);
 void posHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int input);
 void roundHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int nbPisteur);
+void winLoseHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W]);

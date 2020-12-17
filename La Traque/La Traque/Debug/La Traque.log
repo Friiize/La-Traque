@@ -1,3 +1,11 @@
-﻿  posHandler.cpp
+﻿  roundHandler.cpp
 C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(2,31): warning C4081: attendu 'newline' ; rencontré ';'
-  La Traque.vcxproj -> C:\Users\Frize\source\repos\La-Traque\La Traque\Debug\La Traque.exe
+  Source.cpp
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(2,31): warning C4081: attendu 'newline' ; rencontré ';'
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Source.cpp(3,13): warning C4326: le type de retour de 'main' doit être 'int' au lieu de 'void'
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Source.cpp(4,12): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Source.cpp(29,3): error C3861: 'winLoseHandler' : identificateur introuvable
+  winLoseHandler.cpp
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(2,31): warning C4081: attendu 'newline' ; rencontré ';'
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\winLoseHandler.cpp(4,1): fatal error C1004: fin de fichier inattendue rencontrée
+  Génération de code en cours...

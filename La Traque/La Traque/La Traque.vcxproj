@@ -143,6 +143,7 @@
     <ClCompile Include="posHandler.cpp" />
     <ClCompile Include="roundHandler.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="winLoseHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h" />

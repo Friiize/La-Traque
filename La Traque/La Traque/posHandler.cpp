@@ -52,11 +52,12 @@ void initMonstre(monstre* monstres, pisteur* pisteurs, char cases[][W], int fres
 
 	} while ((monstres[0].x < 1 || monstres[0].x > 29) || (monstres[0].y < 1 || monstres[0].y > 14) && isPlaced == 0);
 
+	//Attribue les valeurs une fois la pos validé
 	cases[monstres[0].y][monstres[0].x] = 'M';
 	freshCases[monstres[0].y][monstres[0].x] = 16;
 }
 
-void posHandler (pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int input) {
+void posHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int input) {
 	posPisteur(pisteurs, cases, input); //Gére l'emplacement des pisteurs
 	initMonstre(monstres, pisteurs, cases, freshCases, input);//Gére l'emplacement du monstre
 }

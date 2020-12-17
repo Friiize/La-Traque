@@ -26,12 +26,6 @@ void main() {
 	while (quit) {
 		drawScreen(cases);
 		roundHandler(pisteurs, monstres, cases, freshCases, input);//Gére le tour en cours
-
-		for (int i = 0; i < input; i++) {
-			quit = 0;
-			if (pisteurs[i].isDead == 0) {
-				quit = 1;
-			}
-		}//check si tout les pisteurs sont mort, si oui, le jeu s'arrêtes
+		winLoseHandler(pisteurs, monstres, cases, freshCases);
 	}
 }
