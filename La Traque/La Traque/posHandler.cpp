@@ -42,19 +42,19 @@ void initMonstre(monstre* monstres, pisteur* pisteurs, char cases[][W], int fres
 		monstres[0].x = rand() % W - 1;
 		monstres[0].y = rand() % H - 1;
 
-		for (int i = 0; i < input; i++) {
-			isPlaced = 1;
-			if ((monstres[0].x == pisteurs[i].x) && (monstres[0].y == pisteurs[i].y)) {
+		isPlaced = 1;
+		if ((monstres[0].x >= 1 || monstres[0].x <= 29) || (monstres[0].y >= 1 || monstres[0].y <= 14)) {
+			if (cases[monstres[0].y][monstres[0].x] == ' ') {
 				isPlaced = 0;
-				i = input;
-			}
-		} //Vérification que la pos du monstre soit différente de la pos des pisteurs
+			}//Vérification que la pos du monstre soit différente de la pos des pisteurs et du cadre
+		}
 
-	} while ((monstres[0].x < 1 || monstres[0].x > 29) || (monstres[0].y < 1 || monstres[0].y > 14) && isPlaced == 0);
+	} while (isPlaced == 1);
 
 	//Attribue les valeurs une fois la pos validé
 	cases[monstres[0].y][monstres[0].x] = 'M';
 	freshCases[monstres[0].y][monstres[0].x] = 16;
+	monstres[0].hp = 4;
 }
 
 void posHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int input) {

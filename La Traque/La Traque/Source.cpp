@@ -2,7 +2,7 @@
 
 void main() {
 	srand(time(NULL));//Pour éviter le même séquence de random 
-	int quit = 1;
+	int quit = 0;
 	int input = -1;
 	char cases[H][W];
 	int freshCases[H][W] = { NULL };
@@ -23,9 +23,9 @@ void main() {
 
 	posHandler(pisteurs, monstres, cases, freshCases, input);
 
-	while (quit) {
+	while (quit == 0) {
 		drawScreen(cases);
 		roundHandler(pisteurs, monstres, cases, freshCases, input);//Gére le tour en cours
-		winLoseHandler(pisteurs, monstres, cases, freshCases);
+		quit = winLoseHandler(pisteurs, monstres, cases, freshCases, input);
 	}
 }

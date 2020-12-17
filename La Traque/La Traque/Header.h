@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <Windows.h>
+#include <conio.h>
 
 const int W = 31;
 const int H = 16;
@@ -45,4 +46,4 @@ void drawScreen(char cases[][W]);
 void firstScreen(char cases[][W]);
 void posHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int input);
 void roundHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int nbPisteur);
-void winLoseHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W]);
+int winLoseHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int input);
