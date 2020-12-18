@@ -14,14 +14,15 @@ int winLoseHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int fr
 	if (option == 1) {
 		cases[monstres[0].y][monstres[0].x] = 'M';
 		drawScreen(cases);
-		printf("Le monstre a gagné, une autre fois...Peut-etre.\n\n");
+		printf("Tout vaut pisteurs ont ete tues.\n");
+		printf("Le monstre a gagné, une autre fois...Peut-etre.\n");
 		system("pause");
 	}
 	else if (monstres[0].hp == 0) {
 		drawScreen(cases);
 		printf("Vous avez gagne ! Felicitation !\n\n");
 		system("pause");
-
+		option = 1;
 	}
 
 	return option;

@@ -4,7 +4,17 @@ void deplacementMonstreHandler(pisteur* pisteurs, monstre* monstres, char cases[
 	x = monstres[0].x + x;
 	y = monstres[0].y + y;
 
-	if (cases[monstres[0].y][x] == ' ' || cases[y][monstres[0].x] == ' ') {
+	if ((cases[monstres[0].y][x] == ' ' || cases[y][monstres[0].x] == ' ') {
+		isPriority = 0;
+	} 
+	else if ((cases[monstres[0].y][x] == 'P' || cases[y][monstres[0].x] == 'P') && (monstres[0].isHit == 0)) {
+		isPriority = 1;
+	}
+	else {
+		*isValid = 0;
+	}
+
+	if (isPriority == 1) {
 		cases[monstres[0].y][monstres[0].x] = ' ';
 
 		if (input == 1 || input == 3) {
@@ -17,21 +27,20 @@ void deplacementMonstreHandler(pisteur* pisteurs, monstre* monstres, char cases[
 		cases[monstres[0].y][monstres[0].x] = 'M';//Temporaire
 		freshCases[monstres[0].y][monstres[0].x] = 16;
 		*isValid = 1;
-	} 
-	else {
-		*isValid = 0;
 	}
 }
 
 void deplacementHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int nb){
 	int input = 0;
 	int isValid = 0;
+	int isPriority = -1;
+
 	for (int i = 0; i < nb; i++) {
 		cases[pisteurs[i].y][pisteurs[i].x] = '?';//Mets le status en attente après que le pisteur a fini son rapport
 
 		do {
 			drawScreen(cases);
-			printf("Veuillez donner une direction au pisteur %d, il avancera de une case.\n", i + 1);
+			printf("Veuillez donner une direction de une case au pisteur %d\n", i + 1);
 			printf("1 pour HAUT\t");
 			printf("2 pour DROIT.\n");
 			printf("3 pour BAS\t");
@@ -110,7 +119,12 @@ void deplacementHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], i
 	}
 	
 	do {
-		input = rand() % 4;
+		if (isPriority == 1) {
+
+		}
+		else {
+			input = rand() % 4;
+		}
 		switch (input) {
 		case 0:			
 			deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, 0, 1, input, &isValid);
@@ -128,6 +142,7 @@ void deplacementHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], i
 	} while (isValid == 0);
 
 	drawScreen(cases);
+	monstres[0].isHit == 0;
 	printf("Prochain tour...\n\n");
 	system("pause");
 }
@@ -135,27 +150,29 @@ void deplacementHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], i
 void tirer(pisteur* pisteurs, monstre* monstres, char cases[][W]) {
 	int luck = rand() % 10;
 	drawScreen(cases);
-	printf("Vous préparez le tire et...");
+	printf("Vous preparez le tire et...");
 	Sleep(1000);
 	if (luck <= 4) {
 		monstres[0].hp = monstres[0].hp - 1;
-		printf("Vous l'avez touché ! ");
+		monstres[0].isHit = 1;
+		printf("Vous l'avez touche ! ");
 		if (monstres[0].hp == 0) {
 			printf("Il est mort, bien joue !");
 		}
 		else {
-			printf("Encore %d coup", monstres[0].hp);
+			printf("Encore %d coup\n\n", monstres[0].hp);
 		}
 		system("pause");//Temporaire
 	}
 	else {
-		printf("Manquez...Sauvez-vous vite !");
+		printf("Manquez...Sauvez-vous vite !\n");
 		system("pause");//Temporaire
 	}
 }
 
 void pisteurActionHandler(pisteur* pisteurs, monstre* monstres, char cases[][W]) {
 	char c = { NULL };
+	int isActionDone = 0;
 
 	cases[monstres[0].y][monstres[0].x] = 'M';
 
@@ -168,13 +185,15 @@ void pisteurActionHandler(pisteur* pisteurs, monstre* monstres, char cases[][W])
 		switch (c) {
 		case 'T':
 			tirer(pisteurs, monstres, cases);
+			isActionDone = 1;
 			break;
 		case 'R':
 			printf("Vous ne tirez pas.\n\n");
+			isActionDone = 1;
 			system("pause");
 			break;
 		}
-	} while ((c != 'T' || c != 'R'));
+	} while (isActionDone == 0);
 }
 	
 
@@ -186,6 +205,8 @@ void casesHandler(pisteur* pisteurs, monstre* monstres,char cases[][W], int fres
 		printf("Je le vois.\n\n");
 		system("pause");
 
+		cases[monstres[0].y][monstres[0].x] = 'M';
+
 		pisteurActionHandler(pisteurs, monstres, cases);
 		pisteurs[nb].detectedArea[i].y = y;
 		pisteurs[nb].detectedArea[i].x = x;
@@ -193,12 +214,11 @@ void casesHandler(pisteur* pisteurs, monstre* monstres,char cases[][W], int fres
 		*count = 1;
 	}
 	else if (freshCases[y][x] >= 2) {
-		printf("\nTrace fraiche valant %d en X : %d, Y : %d\n\n", freshCases[y][x], x, y);
+		printf("\nTrace fraiche valant %d en X : %d, Y : %d.\n", freshCases[y][x], x, y);
 		pisteurs[nb].detectedArea[i].y = y;
 		pisteurs[nb].detectedArea[i].x = x;
 		pisteurs[nb].detectedArea[i].fresh = freshCases[y][x];
 		*count = 1;
-		system("pause");//Temporaire
 	}
 }
 
@@ -230,6 +250,7 @@ void rapport(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCas
 			break;
 		case 7:
 			casesHandler(pisteurs, monstres, cases, freshCases, 1, 1, &count, i, nb);//Case bas droit
+			system("pause");
 			break;
 		}//Check toutes les cases autour du pisteur
 	}
@@ -275,5 +296,7 @@ void roundHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int fre
 	}
 
 	pisteurStatus(pisteurs, monstres, cases, freshCases, nbPisteur);//Gére le status du pisteur
-	deplacementHandler(pisteurs, monstres, cases, freshCases, nbPisteur);//Gére les déplacement du tour
+	if (monstres[0].hp <= 1) {
+		deplacementHandler(pisteurs, monstres, cases, freshCases, nbPisteur);//Gére les déplacement du tour
+	}
 }
