@@ -30,6 +30,11 @@ typedef struct monstre {
 	int y = 0;
 	int hp = 4;
 	int isHit = 0;
+
+	int top = 0;
+	int bot = 0;
+	int left = 0;
+	int right = 0;
 }monstre;
 
 void initScreen(char cases[][W], int freshCases[][W]);

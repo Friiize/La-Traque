@@ -1,9 +1,10 @@
 #include "Header.h"
 
-int deplacementMonstreHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int x, int y, int input, int* isValid, int* isPriority) {
+void deplacementMonstreHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int x, int y, int input, int* isValid, int* isPriority) {
 	x = monstres[0].x + x;
 	y = monstres[0].y + y;
 
+	*isValid = 0;
 	if (*isPriority == 1 || *isPriority == 0) {
 		cases[monstres[0].y][monstres[0].x] = ' ';
 
@@ -12,30 +13,27 @@ int deplacementMonstreHandler(pisteur* pisteurs, monstre* monstres, char cases[]
 		}
 		else if (input == 0 || input == 2) {
 			monstres[0].y = y;
-		}
+		}//Vérifie les cas de scénario si c'est X qui est modifié ou Y
 
 		freshCases[monstres[0].y][monstres[0].x] = 16;
 		*isValid = 1;
 
-		return 0;
-	}//Se valide après une 2e boucle & Si la priorité lui est donnée avec un return 0 pour finir la fonction ici
 
+	}//Se valide après une 2e boucle & Si la priorité lui est donnée avec un return 0 pour finir la fonction ici
+	
 	if ((cases[monstres[0].y][x] == ' ' || cases[y][monstres[0].x] == ' ') && *isPriority == -1) {
 		*isPriority = 0;
 	}//Si la case est bien dans le cadre, niveau 2 en priorité
 	else if ((cases[monstres[0].y][x] == 'P' || cases[y][monstres[0].x] == 'P') && (monstres[0].isHit == 0)) {
 		*isPriority = 1;
-		return input;
 	}//Si la case contient un pisteur, le monstre prioritise cette case
-	else {
-		*isValid = 0;
-	}
 }
 
 void deplacementHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int nb){
 	int input = 0;
 	int isValid = 0;
 	int isPriority = -1;
+	int isChecked = 0;
 
 	for (int i = 0; i < nb; i++) {
 		cases[pisteurs[i].y][pisteurs[i].x] = '?';//Mets le status en attente après que le pisteur a fini son rapport
@@ -121,22 +119,31 @@ void deplacementHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], i
 	}
 	
 	do {
-		if (isPriority == -1) {
+		isChecked = 0;
+		if ((monstres[0].top == 1 && monstres[0].bot == 1 && monstres[0].left == 1 && monstres[0].right == 1) || isPriority == 1) {
+			isChecked = 1;
+		}//Vérifie que toutes les cases soit checked OU si un joueur a été repéré dans une case
+
+		if (isChecked == 0) {
 			input = rand() % 4;
 		}//Vérifie si aucune priorité n'a été signalé, si non, on randomise la case où se déplacera le monstre
 
 		switch (input) {
 		case 0:			
-			input = deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, 0, 1, input, &isValid, &isPriority);
+			monstres[0].top = 1;
+			deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, 0, 1, input, &isValid, &isPriority);
 			break;
 		case 1:			
-			input = deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, 1, 0, input, &isValid, &isPriority);
+			monstres[0].right = 1;
+			deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, 1, 0, input, &isValid, &isPriority);
 			break;
 		case 2:
-			input = deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, 0, -1, input, &isValid, &isPriority);
+			monstres[0].bot = 1;
+			deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, 0, -1, input, &isValid, &isPriority);
 			break;
 		case 3:
-			input = deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, -1, 0, input, &isValid, &isPriority);
+			monstres[0].left = 1;
+			deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, -1, 0, input, &isValid, &isPriority);
 			break;
 		}
 	} while (isValid == 0);//Boucle jusqu'à ce que le monstre se déplace
@@ -176,7 +183,7 @@ void pisteurActionHandler(pisteur* pisteurs, monstre* monstres, char cases[][W])
 	char c = { NULL };
 	int isActionDone = 0;
 
-	cases[monstres[0].y][monstres[0].x] = 'M';//On affiche pour plus de visibilité le monstre
+	cases[monstres[0].y][monstres[0].x] = 'M';//On affiche le monstre pour plus de visibilité 
 
 	drawScreen(cases);
 	printf("Vous pouvez tirer avec la touche T.\n");
@@ -214,6 +221,7 @@ void casesHandler(pisteur* pisteurs, monstre* monstres,char cases[][W], int fres
 		*count = 1;
 	}
 	else if (freshCases[y][x] >= 2) {//Récupère les infos de la case seulement si c'est frait de plus de 2
+		Sleep(500);
 		printf("\nTrace fraiche valant %d en X : %d, Y : %d.\n", freshCases[y][x], x, y);
 
 		//On récupères les infos de la case et ses coordonnées
@@ -252,7 +260,7 @@ void rapport(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCas
 			break;
 		case 7:
 			casesHandler(pisteurs, monstres, cases, freshCases, 1, 1, &count, i, nb);//Case bas droit
-			system("pause");
+			Sleep(1000);
 			break;
 		}//Check toutes les cases autour du pisteur
 	}
@@ -268,12 +276,14 @@ void pisteurStatus(pisteur* pisteurs, monstre* monstres, char cases[][W], int fr
 		if (pisteurs[i].isDead == 0) {
 			cases[pisteurs[i].y][pisteurs[i].x] = '!';
 			drawScreen(cases);
-			printf("Rapport du pisteur %d en cours...", i+1);
+			printf("Rapport du pisteur %d en cours...\n", i+1);
+			Sleep(1000);
 			if (pisteurs[i].x == monstres[0].x && pisteurs[i].y == monstres[0].y) {
-				printf("Le monstre viens de le tuer en (%d, %d)\n\n", monstres[0].x, monstres[i].y);
+				printf("Le monstre viens de le tuer en (%d, %d)\n", monstres[0].x, monstres[i].y);
 				cases[pisteurs[i].y][pisteurs[i].x] = ' ';
+				pisteurs[i].isDead = 1;
 				system("pause");
-
+				//Cas si le monstre, à la fin du tour, est sur la case du pisteur, et donc le tue
 			}
 			else if (pisteurs[i].x != monstres[0].x && pisteurs[i].y != monstres[0].y) {
 				rapport(pisteurs, monstres, cases, freshCases, i);//Gére le rapport du pisteur en cours
@@ -281,9 +291,9 @@ void pisteurStatus(pisteur* pisteurs, monstre* monstres, char cases[][W], int fr
 		}
 		else if (pisteurs[i].isDead == 1) {
 			drawScreen(cases);
-			printf("Le pisteur %d est mort en (%d, %d)\n\n", i+1, pisteurs[i].x, pisteurs[i].y);
+			printf("Le pisteur %d est mort en (%d, %d)\n", i+1, pisteurs[i].x, pisteurs[i].y);
 			system("pause");
-
+			//Cas pour juste rappelé que le pisteur x est mort 
 		}
 	}
 }
@@ -298,7 +308,7 @@ void roundHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int fre
 	}
 
 	pisteurStatus(pisteurs, monstres, cases, freshCases, nbPisteur);//Gére le status du pisteur
-	if (monstres[0].hp <= 1) {
+	if (monstres[0].hp != 0) {
 		deplacementHandler(pisteurs, monstres, cases, freshCases, nbPisteur);//Gére les déplacement du tour
 	}
 }
