@@ -52,7 +52,6 @@ void initMonstre(monstre* monstres, pisteur* pisteurs, char cases[][W], int fres
 	} while (isPlaced == 1);
 
 	//Attribue les valeurs une fois la pos validé
-	cases[monstres[0].y][monstres[0].x] = 'M';
 	freshCases[monstres[0].y][monstres[0].x] = 16;
 	monstres[0].hp = 4;
 }

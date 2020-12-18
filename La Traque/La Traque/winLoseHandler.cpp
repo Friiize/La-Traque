@@ -17,13 +17,13 @@ int winLoseHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int fr
 		printf("Tout vaut pisteurs ont ete tues.\n");
 		printf("Le monstre a gagné, une autre fois...Peut-etre.\n");
 		system("pause");
-	}
+	}//Message si tout les pisteurs sont morts
 	else if (monstres[0].hp == 0) {
 		drawScreen(cases);
 		printf("Vous avez gagne ! Felicitation !\n\n");
 		system("pause");
 		option = 1;
-	}
+	}//Message si le monstre a été tué
 
 	return option;
 }

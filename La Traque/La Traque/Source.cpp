@@ -2,6 +2,8 @@
 
 void main() {
 	srand(time(NULL));//Pour éviter le même séquence de random 
+
+	//Init des vars
 	int quit = 0;
 	int input = -1;
 	char cases[H][W];
@@ -21,11 +23,11 @@ void main() {
 
     pisteurs = (pisteur*)calloc(input, sizeof(pisteur)); //Initialise le nombre de pisteur
 
-	posHandler(pisteurs, monstres, cases, freshCases, input);
+	posHandler(pisteurs, monstres, cases, freshCases, input);//Gére la position des objets sur la map
 
 	while (quit == 0) {
 		drawScreen(cases);
 		roundHandler(pisteurs, monstres, cases, freshCases, input);//Gére le tour en cours
-		quit = winLoseHandler(pisteurs, monstres, cases, freshCases, input);
+		quit = winLoseHandler(pisteurs, monstres, cases, freshCases, input);//Gére la condition de victoire ou de défaite
 	}
 }

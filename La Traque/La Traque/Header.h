@@ -5,6 +5,7 @@
 #include <time.h>
 #include <Windows.h>
 #include <conio.h>
+#include <ctype.h>
 
 const int W = 31;
 const int H = 16;
@@ -19,13 +20,8 @@ typedef struct detect {
 typedef struct pisteur {
 	int x = 0;
 	int y = 0;
-	detect detectedArea[8];
-
-	int up = 0;
-	int down = 0;
-	int left = 0;
-	int right = 0;
 	int isDead = 0;
+	detect detectedArea[8];
 }pisteur;
 
 
@@ -33,11 +29,6 @@ typedef struct monstre {
 	int x = 0;
 	int y = 0;
 	int hp = 4;
-
-	int up = 0;
-	int down = 0;
-	int left = 0;
-	int right = 0;
 	int isHit = 0;
 }monstre;
 

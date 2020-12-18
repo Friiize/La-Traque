@@ -1,20 +1,10 @@
 #include "Header.h"
 
-void deplacementMonstreHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int x, int y, int input, int* isValid) {
+int deplacementMonstreHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], int freshCases[][W], int x, int y, int input, int* isValid, int* isPriority) {
 	x = monstres[0].x + x;
 	y = monstres[0].y + y;
 
-	if ((cases[monstres[0].y][x] == ' ' || cases[y][monstres[0].x] == ' ') {
-		isPriority = 0;
-	} 
-	else if ((cases[monstres[0].y][x] == 'P' || cases[y][monstres[0].x] == 'P') && (monstres[0].isHit == 0)) {
-		isPriority = 1;
-	}
-	else {
-		*isValid = 0;
-	}
-
-	if (isPriority == 1) {
+	if (*isPriority == 1 || *isPriority == 0) {
 		cases[monstres[0].y][monstres[0].x] = ' ';
 
 		if (input == 1 || input == 3) {
@@ -24,9 +14,21 @@ void deplacementMonstreHandler(pisteur* pisteurs, monstre* monstres, char cases[
 			monstres[0].y = y;
 		}
 
-		cases[monstres[0].y][monstres[0].x] = 'M';//Temporaire
 		freshCases[monstres[0].y][monstres[0].x] = 16;
 		*isValid = 1;
+
+		return 0;
+	}//Se valide après une 2e boucle & Si la priorité lui est donnée avec un return 0 pour finir la fonction ici
+
+	if ((cases[monstres[0].y][x] == ' ' || cases[y][monstres[0].x] == ' ') && *isPriority == -1) {
+		*isPriority = 0;
+	}//Si la case est bien dans le cadre, niveau 2 en priorité
+	else if ((cases[monstres[0].y][x] == 'P' || cases[y][monstres[0].x] == 'P') && (monstres[0].isHit == 0)) {
+		*isPriority = 1;
+		return input;
+	}//Si la case contient un pisteur, le monstre prioritise cette case
+	else {
+		*isValid = 0;
 	}
 }
 
@@ -60,7 +62,7 @@ void deplacementHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], i
 				i--;
 				system("pause");
 				break;
-			} 
+			}//Sécurité pour pas placer n'importe comment le pisteur
 			else {
 				cases[pisteurs[i].y][pisteurs[i].x] = 'P';
 			}
@@ -119,27 +121,25 @@ void deplacementHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], i
 	}
 	
 	do {
-		if (isPriority == 1) {
-
-		}
-		else {
+		if (isPriority == -1) {
 			input = rand() % 4;
-		}
+		}//Vérifie si aucune priorité n'a été signalé, si non, on randomise la case où se déplacera le monstre
+
 		switch (input) {
 		case 0:			
-			deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, 0, 1, input, &isValid);
+			input = deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, 0, 1, input, &isValid, &isPriority);
 			break;
 		case 1:			
-			deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, 1, 0, input, &isValid);
+			input = deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, 1, 0, input, &isValid, &isPriority);
 			break;
 		case 2:
-			deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, 0, -1, input, &isValid);
+			input = deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, 0, -1, input, &isValid, &isPriority);
 			break;
 		case 3:
-			deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, -1, 0, input, &isValid);
+			input = deplacementMonstreHandler(pisteurs, monstres, cases, freshCases, -1, 0, input, &isValid, &isPriority);
 			break;
 		}
-	} while (isValid == 0);
+	} while (isValid == 0);//Boucle jusqu'à ce que le monstre se déplace
 
 	drawScreen(cases);
 	monstres[0].isHit == 0;
@@ -149,14 +149,16 @@ void deplacementHandler(pisteur* pisteurs, monstre* monstres, char cases[][W], i
 
 void tirer(pisteur* pisteurs, monstre* monstres, char cases[][W]) {
 	int luck = rand() % 10;
+
 	drawScreen(cases);
 	printf("Vous preparez le tire et...");
 	Sleep(1000);
-	if (luck <= 4) {
+
+	if (luck <= 4) {//Vérifie si le nombre est plus petit que 4 pour la jauge de "chance"
 		monstres[0].hp = monstres[0].hp - 1;
 		monstres[0].isHit = 1;
 		printf("Vous l'avez touche ! ");
-		if (monstres[0].hp == 0) {
+		if (monstres[0].hp == 0) {//Si le la vie du monstre tombe à 0 sur ce coup, on déclare vainqueur le joueur
 			printf("Il est mort, bien joue !");
 		}
 		else {
@@ -165,7 +167,7 @@ void tirer(pisteur* pisteurs, monstre* monstres, char cases[][W]) {
 		system("pause");//Temporaire
 	}
 	else {
-		printf("Manquez...Sauvez-vous vite !\n");
+		printf("Manquez...Sauvez-vous vite !\n");//On sait tous qu'il est mort à ce moment
 		system("pause");//Temporaire
 	}
 }
@@ -174,29 +176,27 @@ void pisteurActionHandler(pisteur* pisteurs, monstre* monstres, char cases[][W])
 	char c = { NULL };
 	int isActionDone = 0;
 
-	cases[monstres[0].y][monstres[0].x] = 'M';
+	cases[monstres[0].y][monstres[0].x] = 'M';//On affiche pour plus de visibilité le monstre
 
 	drawScreen(cases);
 	printf("Vous pouvez tirer avec la touche T.\n");
 	printf("Ou sur la touche R pour ne rien faire.\n");
 
 	do {
-		c = getch();
-		switch (c) {
+		c = getch();//Récupères l'input utilisateur 
+		switch (toupper(c)) {//On mets le char en MAJ pour éviter tout problème
 		case 'T':
-			tirer(pisteurs, monstres, cases);
-			isActionDone = 1;
+			tirer(pisteurs, monstres, cases);//Gére le tire
+			isActionDone = 1;//Sécurité pour quitter une fois l'action faites
 			break;
 		case 'R':
 			printf("Vous ne tirez pas.\n\n");
-			isActionDone = 1;
-			system("pause");
+			isActionDone = 1;//Sécurité pour quitter une fois l'action faites
 			break;
 		}
 	} while (isActionDone == 0);
 }
 	
-
 void casesHandler(pisteur* pisteurs, monstre* monstres,char cases[][W], int freshCases[][W], int x, int y, int* count, int i, int nb) {
 	x = pisteurs[nb].x + x;
 	y = pisteurs[nb].y + y;
@@ -205,16 +205,18 @@ void casesHandler(pisteur* pisteurs, monstre* monstres,char cases[][W], int fres
 		printf("Je le vois.\n\n");
 		system("pause");
 
-		cases[monstres[0].y][monstres[0].x] = 'M';
-
-		pisteurActionHandler(pisteurs, monstres, cases);
+		pisteurActionHandler(pisteurs, monstres, cases);//Gére les actions du pisteur
+		
+		//On récupères les infos de la case et ses coordonnées
 		pisteurs[nb].detectedArea[i].y = y;
 		pisteurs[nb].detectedArea[i].x = x;
 		pisteurs[nb].detectedArea[i].fresh = freshCases[y][x];
 		*count = 1;
 	}
-	else if (freshCases[y][x] >= 2) {
+	else if (freshCases[y][x] >= 2) {//Récupère les infos de la case seulement si c'est frait de plus de 2
 		printf("\nTrace fraiche valant %d en X : %d, Y : %d.\n", freshCases[y][x], x, y);
+
+		//On récupères les infos de la case et ses coordonnées
 		pisteurs[nb].detectedArea[i].y = y;
 		pisteurs[nb].detectedArea[i].x = x;
 		pisteurs[nb].detectedArea[i].fresh = freshCases[y][x];
@@ -268,9 +270,9 @@ void pisteurStatus(pisteur* pisteurs, monstre* monstres, char cases[][W], int fr
 			drawScreen(cases);
 			printf("Rapport du pisteur %d en cours...", i+1);
 			if (pisteurs[i].x == monstres[0].x && pisteurs[i].y == monstres[0].y) {
-				printf("Le monstre viens de le tuer en (%d, %d)", monstres[0].x, monstres[i].y);
+				printf("Le monstre viens de le tuer en (%d, %d)\n\n", monstres[0].x, monstres[i].y);
 				cases[pisteurs[i].y][pisteurs[i].x] = ' ';
-				system("pause");//Temporaire
+				system("pause");
 
 			}
 			else if (pisteurs[i].x != monstres[0].x && pisteurs[i].y != monstres[0].y) {
@@ -279,8 +281,8 @@ void pisteurStatus(pisteur* pisteurs, monstre* monstres, char cases[][W], int fr
 		}
 		else if (pisteurs[i].isDead == 1) {
 			drawScreen(cases);
-			printf("Le pisteur %d est mort en (%d, %d)", i+1, pisteurs[i].x, pisteurs[i].y);
-			system("pause");//Temporaire
+			printf("Le pisteur %d est mort en (%d, %d)\n\n", i+1, pisteurs[i].x, pisteurs[i].y);
+			system("pause");
 
 		}
 	}
