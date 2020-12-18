@@ -1,4 +1,11 @@
-﻿  roundHandler.cpp
+﻿  Source.cpp
 C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(2,31): warning C4081: attendu 'newline' ; rencontré ';'
-C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\roundHandler.cpp(153,20): warning C4553: '==' : résultat de l'expression non utilisé ; souhaitiez-vous utiliser '=' ?
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Source.cpp(3,13): warning C4326: le type de retour de 'main' doit être 'int' au lieu de 'void'
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Source.cpp(4,12): warning C4244: 'argument' : conversion de 'time_t' en 'unsigned int', perte possible de données
+  posHandler.cpp
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(2,31): warning C4081: attendu 'newline' ; rencontré ';'
+  roundHandler.cpp
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\Header.h(2,31): warning C4081: attendu 'newline' ; rencontré ';'
+C:\Users\Frize\source\repos\La-Traque\La Traque\La Traque\roundHandler.cpp(152,20): warning C4553: '==' : résultat de l'expression non utilisé ; souhaitiez-vous utiliser '=' ?
+  Génération de code en cours...
   La Traque.vcxproj -> C:\Users\Frize\source\repos\La-Traque\La Traque\Debug\La Traque.exe
